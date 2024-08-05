@@ -1,0 +1,77 @@
+<div class="w-full min-h-screen bg-[#141438] flex">
+  <section class="w-[25%] bg-[#141438] py-4 px-4 flex flex-col gap-10">
+    <div class="w-full h-auto flex gap-0 items-end">
+      <div class="w-[65px] h-[50px] overflow-hidden">
+        <img
+          src="https://png.pngtree.com/png-clipart/20221228/original/pngtree-gradient-t-logo-png-image_8818562.png"
+          class="w-full h-full object-cover">
+      </div>
+      <span class="font-bold text-2xl">ask Manager</span>
+    </div>
+      <ul class="navBar-ul flex flex-col">
+        <li class="navBar-li" id="navHome">
+          <a routerLink="/">
+            <ion-icon name="home-outline"></ion-icon>
+            <span>Trang chủ</span>
+          </a>
+        </li>
+        <li class="navBar-li" id="projectsNav">
+          <a routerLink="/projects">
+            <ion-icon name="folder-outline"></ion-icon>
+            <span>Dự án</span>
+          </a>
+        </li>
+        <li class="navBar-li" id="personnelsNav">
+          <a routerLink="/personnels">
+            <ion-icon name="people-outline"></ion-icon>
+            <span>Nhân viên</span>
+          </a>
+        </li>
+        <li class="navBar-li" id="tasksNav">
+          <a routerLink="/tasks">
+            <ion-icon name="grid-outline"></ion-icon>
+            <span>Task</span>
+          </a>
+        </li>
+        <li class="navBar-li" id="logOutAccount">
+          <span class="cursor-pointer flex items-center gap-4" (click)="lockOut()">
+            <ion-icon name="log-out-outline"></ion-icon>
+            <span>Log Out</span>
+          </span>
+        </li>
+      </ul>
+  </section>
+  <section class="w-full bg-green-[#141438]">
+    <header class="w-full h-16 bg-[#141438] p-4 flex justify-between">
+      <div class="w-auto h-full flex items-center gap-4">
+        <button class="flex flex-col justify-center items-end gap-1 w-8 h-8 navBarShow" id="showNavBar">
+          <span class="w-[60%] h-[5px] rounded-md bg-white"></span>
+          <span class="w-full h-[5px] rounded-md bg-white"></span>
+          <span class="w-[60%] h-[5px] rounded-md bg-white"></span>
+        </button>
+        <span class="text-2xl font-semibold pt-2">Todo List</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="h-full w-auto flex items-center gap-2 headerIcon relative">
+          <div class="w-8 h-8 flex justify-center items-center divIcon">
+            <ion-icon name="mail-outline"></ion-icon>
+          </div>
+          <div class="w-8 h-8 flex justify-center items-center divIcon">
+            <ion-icon name="notifications-outline"></ion-icon>
+            <span>1</span>
+          </div>
+        </div>
+        <div class="flex flex-col w-auto h-full justify-center gap-1">
+          <span class="text-[15px]">Quốc Thành</span>
+          <span class="text-[14px] text-green-500" id="roleShow"></span>
+        </div>
+        <div class="rounded-full w-8 h-8 bg-white overflow-hidden">
+          <img src="https://cdn.dribbble.com/users/2400293/screenshots/15662879/media/0104d2c2c69469478553179b8e77fbab.png?resize=450x338&vertical=center" class="w-full h-full overflow-hidden">
+        </div>
+      </div>
+    </header>
+    <main class="w-full h-full p-4">
+      <router-outlet></router-outlet>
+    </main>
+  </section>
+</div>

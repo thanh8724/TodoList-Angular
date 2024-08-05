@@ -1,0 +1,45 @@
+<link rel="stylesheet" href="../../styles/toastMessage.css">
+<div class="container__full background:radial-gradient(50% 50% at 50% 50%, #3D1C1C 0%, rgba(17, 23, 41, 0) 100%)">
+  <div class="container__main">
+    <div class="container__main--login">
+      <section class="section__form">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <h1 class="title">Đăng Nhập</h1>
+          <div class="form__group">
+            <input id="inputEmail" class="form__input" formControlName="email" (input)="changeTypeMessageSubmit()" type="email" placeholder=" ">
+            <label class="label__place" for="">Email</label>
+            <span class="form__message form__message-email" id="message__email"
+              *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)">
+              Địa chỉ email không hợp lệ!
+            </span>
+            <div class="show-hidden_password">
+                <ion-icon class="form__icon icon-input" name="mail-outline" style="top: 33px !important;"></ion-icon>
+            </div>
+          </div>
+          <div class="form__group">
+            <input class="form__input" id="inputPassword" formControlName="password" (input)="changeTypeMessageSubmit()" type="password" placeholder=" ">
+            <label class="label__place" for="">Mật khẩu</label>
+            <span class="form__message"
+              *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)">
+              Mật khẩu phải có từ 8 đến 36 ký tự
+            </span>
+            <div #passwordToggle class="show-hidden_password" (click)="toggleShowPassword(passwordToggle)">
+              <ion-icon class="form__icon eye-icon" name="lock-closed-outline"></ion-icon>
+              <ion-icon class="form__icon eye-icon eye-active" name="lock-open-outline"></ion-icon>
+            </div>
+          </div>
+          <div class="forget">
+            <label class="forget__label" for=""><input type="checkbox">Nhớ mật khẩu</label>
+            <a class="forget__password" href="#">Quên mật khẩu</a>
+          </div>
+          <button class="button__login" type="submit" [disabled]="loginForm.invalid">Đăng nhập</button>
+          <div class="register">
+            <span class="messageSubmit" *ngIf="!this.accountExits">
+                Email hoặc mật khẩu không đúng!
+            </span>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,300 @@
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font: inherit;
+    font-family: 'Work Sans', sans-serif;
+}
+
+img,
+picture,
+svg,
+video {
+    display: block;
+    max-width: 100%;
+}
+
+input,
+select,
+textarea {
+    background-color: transparent;
+    outline: none;
+}
+
+button {
+    cursor: pointer;
+    background-color: transparent;
+    outline: none;
+    border: 0;
+}
+
+body {
+    min-height: 100vh;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+:root {
+    --trans-bounce: 0.22s cubic-bezier(0.23, 1, 0.320, 1);
+    --trans-bounce2: 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+    --trans-bounce3: 2s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.container__full {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #141438;
+    z-index: 10000;
+}
+
+.container__main {
+    width: auto;
+    height: 100%;
+    display: flex;
+    transition: var(--trans-bounce3);
+}
+
+.container__main--login {
+    min-width: 100vw !important;
+    height: 100vh !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: radial-gradient(50% 50% at 0% 10%, #3D1C1C -20%, #11172900 100%)
+}
+
+.container__main--register {
+    min-width: 100vw !important;
+    height: 100vh !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-image: url('https://scontent.fsgn5-14.fna.fbcdn.net/v/t1.6435-9/39521816_894116797425524_6505184803988439040_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=300f58&_nc_ohc=Asp04UI7kZMAX-v27Nt&_nc_ht=scontent.fsgn5-14.fna&oh=00_AfBieTLBOfkF5rrlwKLN8e922nLCmyqa8Dxkh2FAuNBaUw&oe=65C2E8B7');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.translate-container {
+    transform: translateX(-100vw);
+}
+
+.section__form {
+    position: relative;
+    width: 400px;
+    background: linear-gradient(#141438, #141438) padding-box, linear-gradient(145deg, transparent 35%, #e81cff, #40c9ff) border-box;
+    border: 3px solid transparent;
+    border-radius: 20px;
+    backdrop-filter: blur(55px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 3rem;
+    box-shadow: 0 5px 10px rgba(241, 240, 240, 0.284);
+}
+
+form {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+h1 {
+    font-size: 2rem;
+    color: #fff;
+    text-align: center;
+    /* margin-bottom: 40px; */
+}
+
+.form__group {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 60px;
+    /* border-bottom: 2px solid white; */
+}
+
+.form__icon {
+    position: absolute;
+    font-size: 25px;
+    color: white;
+}
+
+.form__input {
+    width: calc(100% - 40px);
+    height: 50px;
+    background-color: inherit;
+    outline: none;
+    border: none;
+    color: white;
+}
+
+.label__place {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-75%);
+    color: white;
+    transition: all 0.25s ease-in;
+    pointer-events: none;
+}
+
+.form__message {
+    font-size: 12px;
+    font-weight: 200;
+    position: absolute;
+    transform: translateY(25%);
+    bottom: -5%;
+    background-color: #141438;
+    color: #fc6c8f;
+    padding-right: 4px;
+}
+.messageSubmit {
+    font-size: 15px;
+    font-weight: 300;
+    background-color: #141438;
+    color: #fc6c8f;
+}
+
+.form__group::before {
+    content: "";
+    width: 100%;
+    height: 2px;
+    background-color: white;
+    position: absolute;
+    bottom: 0;
+}
+
+.icon-input {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-100%);
+}
+
+.show-hidden_password {
+    width: 40px;
+    height: 40px;
+    background-color: inherit;
+    border: none;
+    position: absolute;
+    right: 0;
+    top: 7px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    cursor: pointer;
+}
+
+.forget {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.forget__label {
+    display: flex;
+    gap: 5px;
+    font-size: 15px;
+    font-weight: 200;
+    color: white;
+}
+
+.forget__password {
+    color: white;
+    text-decoration: none;
+}
+
+.button__login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    border: none;
+    width: 100%;
+    height: 40px;
+    font-weight: 700;
+    font-size: 18px;
+    cursor: pointer;
+    background-color: #fff;
+    color: #141438;
+}
+
+.register {
+    color: #fff;
+    display: flex;
+    justify-content: center;
+}
+
+.register p {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+}
+
+.register a {
+    text-decoration: none;
+    color: #fff;
+}
+
+/*  HIỆU ỨNG KHI FOCUS INPUT */
+.form__input:not(:placeholder-shown)+.label__place,
+.form__input:focus+.label__place {
+    top: 0;
+    display: inline-block;
+}
+
+.eye-active {
+    display: none;
+}
+
+.error-text {
+    color: red;
+}
+
+.error-block {
+    background-color: red;
+}
+
+.form_login,
+.form_register {
+    color: #adaddb !important;
+}
+// input:-webkit-autofill {
+//     background-color: #141438;
+//     /* Màu nền bạn muốn áp dụng */
+//     -webkit-box-shadow: 0 0 0px 1000px #141438;
+//     -webkit-text-fill-color: white;
+//     /* Màu chữ */
+// }
+// /* Đảm bảo rằng màu nền được giữ nguyên khi trường nhập liệu bị focus */
+// input:-webkit-autofill:focus {
+//     background-color: #141438;
+//     -webkit-box-shadow: 0 0 0px 1000px #141438 inset;   
+//     -webkit-text-fill-color: white;
+// }

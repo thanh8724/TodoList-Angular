@@ -1,0 +1,188 @@
+<div class="w-full h-[75px] bg-[#e3eaef] rounded-xl p-4 gap-4 flex flex-col" id="containerTask">
+  {{showHiddenAdd()}}
+  <section class="flex flex-col gap-4 overflow-hidden rounded-xl">
+    <div class="w-full h-11 flex justify-between items-center">
+      <span class="text-2xl text-black font-bold">Tasks</span>
+      <div class="flex items-center h-full gap-3">
+        <div class="h-full flex items-center relative">
+          <ion-icon name="search-outline" class="text-black absolute left-3"></ion-icon>
+          <input type="text" placeholder="Tìm kiếm" class="w-full h-full text-black" id="search" [(ngModel)]="searchTerm" (input)="filterData()">
+        </div>
+        <button class="h-full bg-[#282853] rounded-xl text-white px-3 flex items-center cursor-pointer" id="buttonShowHidden1">
+          <ion-icon name="add-outline"></ion-icon>
+          <span>Thêm task</span>
+        </button>
+      </div>
+    </div>
+    <div class="w-full h-[600px] bg-white rounded-xl shadow-lg overflow-y-auto" id="contentShow">
+      <table class="w-full table-auto">
+        <thead class="">
+          <tr class="text-black font-semibold h-[50px]">
+            <th class="px-4 py-2 text-left">Mô tả</th>
+            <th class="px-4 py-2 text-left">Tiến độ</th>
+            <th class="px-4 py-2 text-left">Sự ưu tiên</th>
+            <th class="px-4 py-2 text-left">Thời hạn</th>
+            <th class="px-4 py-2 text-left">Tên nhiệm vụ</th>
+            <th class="px-4 py-2 text-left">Hành động</th>
+          </tr>
+        </thead>
+        <tbody class="">
+          <h1 class="text-black font-semibold ml-4" *ngIf="filteredData.length==0">Chưa có nhiệm vụ!</h1>
+          <tr class="border-b text-black py-4 h-[40px]" *ngFor="let item of filteredData">
+            <td class="px-4 py-2">{{item.description}}</td>
+            <td class="px-4 py-2 text-blue-500" *ngIf="item.progress == 1">Đã giao</td>
+            <td class="px-4 py-2 text-orange-500" *ngIf="item.progress == 2">Đang thực hiên</td>
+            <td class="px-4 py-2 text-green-500" *ngIf="item.progress == 3">Đã hoàn thành</td>
+            <td class="px-4 py-2 text-red-500" *ngIf="item.priority == 1">Ưu tiên</td>
+            <td class="px-4 py-2 text-yellow-500" *ngIf="item.priority == 2">Ưu tiên thấp</td>
+            <td class="px-4 py-2">{{item.date |date:"dd-MM-yyyy"}}</td>
+            <td class="px-4 py-2 flex space-x-2">
+             {{item.name}}
+            </td>
+            <td class="px-4 py-2 cursor-pointer text-red-600" id="buttonShowHidden2">
+              <span style="display: none;" id="idTask">{{item.id}}</span>
+              Xem chi tiết
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  
+  <!-- popup add -->
+  <section class="fixed w-full h-full top-0 left-0 z-50 flex justify-center items-center sectionPopup" id="sectionPopup">
+    <div class="w-[35%] h-auto bg-white rounded-xl flex flex-col gap-4 translate-y-[100%]" id="popUpContent">
+      <div class="flex justify-between items-center p-3">
+        <span class="text-[#141438] text-2xl font-semibold">Thêm nhiệm vụ mới</span>
+        <button id="buttonShowHidden1">
+          <ion-icon name="close-outline" class="text-[#141438] text-3xl font-semibold cursor-pointer"></ion-icon>
+        </button>
+      </div>
+      <span class="text-red-700 pl-4 font-semibold" id="message__info"></span>
+      <form class="flex gap-6 p-4" [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+        <div class="flex flex-col gap-4 w-2/3">
+          <div class="flex flex-col gap-1">
+            <label for="task" class="text-black font-semibold text-sm">Tên nhiệm vụ</label>
+            <input type="text" formControlName="task" class="text-black border border-black rounded-xl py-3 px-6" (input)="changeTypeMessage()" (blur)="blurInput()" placeholder="Exp: Design Layout" id="nameTaskInput">
+            <span class="form__message form__message-email text-red-600 font-semibold text-[13px]" *ngIf="taskExits">
+              Nhiệm vụ đã tồn tại!
+            </span>
+          </div>
+          <div class="flex flex-col gap-1">
+            <label for="project" class="text-black font-semibold text-sm">Thuộc dự án</label>
+            <select formControlName="project" class="text-black border border-black rounded-lg p-2">
+              <option *ngFor="let project of data.projects" [value]="project.id">{{ project.name }}</option>
+            </select>
+          </div>
+          <div class="flex flex-col gap-1">
+            <label for="description" class="text-black font-semibold text-sm">Mô tả</label>
+            <textarea formControlName="description" cols="12"
+              class="text-black border border-black rounded-xl py-3 px-6 resize-none h-24"
+              placeholder="Mô tả nhiệm vụ"></textarea>
+          </div>
+        </div>
+        <div class="flex flex-col gap-4 w-1/3 justify-between">
+          <div class="flex flex-col gap-1">
+            <label for="startDate" class="text-black font-semibold text-sm">Ngày bắt đầu</label>
+            <input type="date" formControlName="startDate" class="text-black border border-black rounded-lg p-2">
+          </div>
+          <div class="flex flex-col gap-1">
+            <label for="endDate" class="text-black font-semibold text-sm">Ngày kết thúc</label>
+            <input type="date" formControlName="endDate" class="text-black border border-black rounded-lg p-2">
+          </div>
+          <div class="flex flex-col gap-1">
+            <label for="priority" class="text-black font-semibold text-sm">Mức độ ưu tiên</label>
+            <select formControlName="priority" class="text-black border border-black rounded-lg p-2">
+              <option value="1">Cao</option>
+              <option value="2">Thấp</option>
+            </select>
+          </div>
+          <div>
+            <button type="submit" class="bg-[#282853] text-white p-3 rounded-lg w-full">Thêm nhiệm vụ</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+  <!-- popup detail -->
+  <section class="fixed w-full h-full top-0 left-0 z-50 flex justify-center items-center sectionPopup" id="sectionPopup2">
+    <div class="w-[35%] h-auto bg-white rounded-xl flex flex-col gap-4 translate-y-[200%]" id="popUpContent">
+      <div class="flex justify-between items-center p-3">
+        <span class="text-[#141438] text-2xl font-semibold">Chi tiết nhiệm vụ</span>
+        <button id="buttonShowHidden2">
+          <ion-icon name="close-outline" class="text-[#141438] text-3xl font-semibold cursor-pointer"></ion-icon>
+        </button>
+      </div>
+      <span class="text-red-700 pl-4 font-semibold" id="message__infoUpdate"></span>
+      <form class="flex gap-6 p-4">
+        <div class="flex flex-col gap-4 w-2/3">
+          <div class="flex flex-col gap-1">
+            <label for="task" class="text-black font-semibold text-sm">Tên nhiệm vụ</label>
+            <input type="text" class="pointer-events-none text-black border border-black rounded-xl py-3 px-6" placeholder="Exp: Design Layout" id="nameTaskInputDetail">
+            <span class="form__message form__message-email text-red-600 font-semibold text-[13px]" *ngIf="taskExits">
+              Nhiệm vụ đã tồn tại!
+            </span>
+          </div>
+          <div class="flex flex-col gap-1">
+            <label for="project" class="text-black font-semibold text-sm">Thuộc dự án</label>
+            <span class="text-black border border-black rounded-lg p-2">
+              Asm1
+            </span>
+          </div>
+          <div class="flex flex-col gap-1">
+            <label for="description" class="text-black font-semibold text-sm">Nhiệm vụ cho</label>
+            <div class="grid grid-cols-2 gap-y-2">
+              <div class="flex items-center gap-[4px]" *ngFor="let item of data.personnels">
+                <input type="checkbox" name="" [id]="item.id" [(ngModel)]="item.isChecked"
+                  (change)="updateSelectedPersonnel(item.id, item.isChecked)" [ngModelOptions]="{standalone: true}">
+                <label [for]="item.id" class="text-black text-sm">{{item.name}}</label>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col gap-1">
+            <label for="description" class="text-black font-semibold text-sm">Nguời quản lý</label>
+            <div class="grid grid-cols-2 gap-y-2">
+              <div class="flex items-center gap-[4px]" *ngFor="let item of data.personnels">
+                <input type="radio" name="" [id]="item.id" name="manager" [(ngModel)]="selectedManagerId" [id]="item.id" [value]="item.id">
+                <label [for]="item.id" class="text-black text-sm">{{item.name}}</label>
+              </div>
+            </div>
+            <span class="text-red-700 pl-4 font-semibold" id="message__infoUpdate2"></span>
+          </div>
+        </div>
+        <div class="flex flex-col gap-4 w-1/3 justify-between">
+          <div class="flex flex-col gap-1">
+            <label for="startDate" class="text-black font-semibold text-sm">Ngày bắt đầu</label>
+            <span class="text-black border border-black rounded-lg p-2 pointer-events-none" id="dateStartDetail"></span>
+          </div>
+          <div class="flex flex-col gap-1">
+            <label for="endDate" class="text-black font-semibold text-sm">Ngày kết thúc</label>
+            <input type="date" class="text-black border border-black rounded-lg p-2 cursor-pointer" id="date_endDetail">
+          </div>
+          <div class="flex flex-col gap-1">
+            <label for="priority" class="text-black font-semibold text-sm">Mức độ ưu tiên</label>
+            <select class="text-black border border-black rounded-lg p-2" id="priorityUpdate">
+              <option value="1" id="optionDetail">Ưu tiên</option>
+              <option value="2" id="optionDetail">Ưu tiên thấp</option>
+            </select>
+          </div>
+          <div class="flex flex-col gap-1">
+            <label for="priority" class="text-black font-semibold text-sm">Tiến độ</label>
+            <select class="text-black border border-black rounded-lg p-2" id="progressUpdate">
+              <option value="1" id="progressOption">Đã giao</option>
+              <option value="2" id="progressOption">Đang thực hiện</option>
+              <option value="3" id="progressOption">Đã hoàn thành</option>
+            </select>
+          </div>
+          <div class="flex gap-3">
+            <button type="submit" class="bg-[#282853] text-white p-3 rounded-lg w-2/3" (click)="onSubmitUpdate()">Cập nhật</button>
+            <button type="submit" class="bg-red-400 hover:bg-red-500 text-white p-3 rounded-lg w-1/3" (click)="deleteTast()">
+              <span id="idTaskDelete" style="display: none;"></span>
+              Xóa
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>
